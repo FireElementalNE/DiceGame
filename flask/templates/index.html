@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Dice Simulation</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
+		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script type=text/javascript>
+  			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+		<link href='https://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	</head>
+	<body>
+		<div id="info_submission">
+			<span>Dice Game</span><br/>
+			<label for="name1">Name 1: </label><input id="name1"><br/>
+			<label for="name2">Name 2: </label><input id="name2"><br/>
+			<label for="rounds">Rounds: </label><input id="rounds"><br/>
+			<button id="submitbutton" type="button" >Submit</button>
+		</div>
+		<div id="gamespace" hidden>
+			<span id="names"></span>
+			<div id="output"></div>
+		</div>
+	</body>
+</html>

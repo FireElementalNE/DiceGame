@@ -1,5 +1,6 @@
 # app.py
 import argparse
+import pprint
 from flask import Flask, jsonify, request, render_template
 from dice_sim_lib import play
 app = Flask(__name__)
@@ -12,7 +13,9 @@ def hello():
         print('Incoming..')
         print(request.form['n1'])  # parse as JSON
         text = play(request.form['n1'], request.form['n2'], int(request.form['rounds']))
-        print(text)
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(text)
+        # print(text)
         return jsonify({'text':text})
 
     # GET request

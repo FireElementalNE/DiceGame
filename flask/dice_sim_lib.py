@@ -11,15 +11,14 @@ class Game():
 		self.players = [Player(n1), Player(n2)]
 		self.winning = 0
 		self.losing = 1
-		self.first = 0
-		self.games = 0
-		self.round_num = 0
-		self.text = []
+		self.round_num = 1
+		self.text = {}
 		random.seed(s)
 	
 	def round(self):
-		w_roll = random.randint(1,100) 
-		self.text.append("{} (the current winner) rolled a {}".format(self.players[self.winning].name, w_roll))
+		w_roll = random.randint(1,100)
+		self.text[str(self.round_num)] = []
+		self.text[str(self.round_num)].append("{} (the current winner) rolled a {}".format(self.players[self.winning].name, w_roll))
 		game_over = False
 		while not game_over:
 			result = self.roll(w_roll)
@@ -34,12 +33,12 @@ class Game():
 			elif result[0] == -1:
 				self.players[self.winning].wins += 1
 				game_over = True
-		self.text.append("{} Wins!".format(self.players[self.winning].name))
-		self.text.append(" ")
+		self.text[str(self.round_num)].append("{} Wins!".format(self.players[self.winning].name))
+		self.round_num += 1
 		
 	def roll(self, to_beat):
 		new_roll = random.randint(1,100)
-		self.text.append("{} (the current loser) rolled a {}".format(self.players[self.losing].name, new_roll))
+		self.text[str(self.round_num)].append("{} (the current loser) rolled a {}".format(self.players[self.losing].name, new_roll))
 		if new_roll < to_beat:
 			return [1, new_roll]
 		elif new_roll == to_beat:
@@ -56,8 +55,8 @@ def play(n1, n2, rounds):
 		G.round()
 
 	final_text = G.text
-
-	final_text.append("{} has {} wins.".format(G.players[G.losing].name, G.players[G.losing].wins))
-	final_text.append("{} has {} wins.".format(G.players[G.winning].name, G.players[G.winning].wins))
+	final_text["result"] = []
+	final_text["result"].append("{} has {} wins.".format(G.players[G.losing].name, G.players[G.losing].wins))
+	final_text["result"].append("{} has {} wins.".format(G.players[G.winning].name, G.players[G.winning].wins))
 
 	return final_text

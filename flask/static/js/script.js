@@ -4,15 +4,28 @@ $( document ).ready(function() {
     var a;
 });
 
+function write_text(t) {
+  // $('#output').html(data['text'].join('</br>'));
+  console.log(Object.keys(t['text']).length);
+  console.log(t['text']);
+  var i, j;
+  for (i = 1; i < Object.keys(t['text']).length; i++) {
+    var id = "div" + i.toString();
+    console.log(t['text'][i.toString()]);
+    $('#output').append("<p id='" + id + "'></p>")
+    $("#" + id).hide();
+    // for(j = 0; j < t['text'][i.toString()].length; j++) {
+    $("#" + id).html(t['text'][i.toString()].join('</br>'));
+    $("#" + id).fadeIn(1000);
+    // }
+
+  }
+}
 function start_game() {
   var x, text;
-
-  // Get the value of the input field with id="numb"
   n1 = $("#name1").val();
   n2 = $("#name2").val();
   rounds = $("#rounds").val();
-
-  // If x is Not a Number or less than one or greater than 10
   if (isNaN(rounds) || n1 == "" || n2 == "") {
     console.log("Invalid Input");
   } else {
@@ -27,9 +40,8 @@ function start_game() {
         dataType: 'json',
         data: data,
         success: function(data) {
-            $('#output').html(data['text'].join('</br>'));
-                   // ... do something with the data...
-                 }
+          write_text(data);
+        }
     });
   }
 }

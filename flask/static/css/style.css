@@ -5,22 +5,16 @@ body {
 }
 input[type=text] {
   padding:10px;
-  margin:10px 0; // add top and bottom margin
+  margin:10px auto; 
   padding:10px;
   border:0;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-
+  width: 30%;
 }
  
 .center{
-  width: 500px;
-  height: 100px;
-  padding: 20px;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  margin: -70px 0 0 -170px;
-
+  margin: auto;
+  width: 30%;
 }
 
 .button {
@@ -36,8 +30,8 @@ input[type=text] {
   cursor: pointer;
   width: 60%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
   width: 40%;
 }
 
@@ -45,12 +39,7 @@ input[type=text] {
 	font-family: 'Inconsolata', monospace;
 }
 
-#dicetitle {
-	text-align: center;
-}
-
 .titles{
 	font-size: 2.5em;
-	
 	color:#FF851B;
 }

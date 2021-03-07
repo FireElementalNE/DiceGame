@@ -97,7 +97,28 @@ string arg_copy(char * arg) {
 	return ret;
 }
 
-
+int play_round(Player ** players, int winning) {
+	int losing = 1 - winning;
+    int w_roll = rand_int_in_range(MIN, MAX);
+    cout << "\t" << players[winning]->get_name() << " (the current winner) rolled a " << w_roll << endl;
+    bool game_over = false;
+    while(!game_over) {
+        int new_roll = rand_int_in_range(MIN, MAX);
+        cout << "\t" << players[losing]->get_name() << " (the current loser) rolled a " << new_roll << endl;
+        if(new_roll < w_roll) {
+            int tmp = winning;
+            winning = losing;
+            losing = tmp;
+            w_roll = new_roll;
+        } else {
+            players[winning]->incr_wins();
+            game_over = true;
+        } 
+    }
+    cout << "\t" << players[winning]->get_name() << " Wins!" << std::endl;    
+	cout << endl;
+	return winning;
+}
 
 int main(int argc, char ** argv) {
 	if(argc != 4) {
@@ -113,27 +134,10 @@ int main(int argc, char ** argv) {
 
     cout << "Starting randomly with " << players[winning]->get_name() << "." << endl;
     for(int i = 0; i < rounds; i++) {
-        // cout << "Round " << i << ":" << endl;
-    	int losing = 1 - winning;
-	    int w_roll = rand_int_in_range(MIN, MAX);
-	    // cout << "\t" << players[winning].get_name() << " (the current winner) rolled a " << w_roll << endl;
-	    bool game_over = false;
-	    while(!game_over) {
-	        int new_roll = rand_int_in_range(MIN, MAX);
-	        // cout << "\t" << players[losing].get_name() << " (the current loser) rolled a " << new_roll << endl;
-	        if(new_roll < w_roll) {
-	            int tmp = winning;
-	            winning = losing;
-	            losing = tmp;
-	            w_roll = new_roll;
-	        } else {
-	            players[winning]->incr_wins();
-	            game_over = true;
-	        } 
-	    }
-	    // cout << "\t" << players[winning].get_name() << " Wins!" << std::endl;    
-    	// cout << endl;
+    	cout << "Round " << i << ":" << endl;
+    	winning = play_round(players, winning);
     }
+
     for(int i = 0; i < 2; i++) {
     	cout << players[i]->get_name() << " has " << players[i]->get_wins() << " wins." << endl;
 	}

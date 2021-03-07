@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include <vector>
+#include <thread>
 
 #ifndef _WIN32
 #include <openssl/rand.h>
@@ -98,15 +98,20 @@ string arg_copy(char * arg) {
 }
 
 
+
 int main(int argc, char ** argv) {
 	if(argc != 4) {
 		cerr << "Usage: " << argv[0] << " <name1> <name2> <rounds>" << endl;
 		exit(EXIT_FAILURE);
 	}
-    vector <Player> players = {Player(arg_copy(argv[1])), Player(arg_copy(argv[2]))};
+	
+	Player ** players = new Player*[2];
+	players[0] = new Player(arg_copy(argv[1]));
+	players[1] = new Player(arg_copy(argv[2]));
     int rounds = safe_atoi(argv[3]);
     int winning = rand_int_in_range(MIN, MAX) % 2;
-    cout << "Starting randomly with " << players[winning].get_name() << "." << endl;
+
+    cout << "Starting randomly with " << players[winning]->get_name() << "." << endl;
     for(int i = 0; i < rounds; i++) {
         // cout << "Round " << i << ":" << endl;
     	int losing = 1 - winning;
@@ -122,14 +127,14 @@ int main(int argc, char ** argv) {
 	            losing = tmp;
 	            w_roll = new_roll;
 	        } else {
-	            players[winning].incr_wins();
+	            players[winning]->incr_wins();
 	            game_over = true;
 	        } 
 	    }
 	    // cout << "\t" << players[winning].get_name() << " Wins!" << std::endl;    
     	// cout << endl;
     }
-    for(int i = 0; i < players.size(); i++) {
-    	cout << players[i].get_name() << " has " << players[i].get_wins() << " wins." << endl;
+    for(int i = 0; i < 2; i++) {
+    	cout << players[i]->get_name() << " has " << players[i]->get_wins() << " wins." << endl;
 	}
 }
